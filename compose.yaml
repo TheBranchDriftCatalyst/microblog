@@ -1,0 +1,20 @@
+# Add database
+# Add backend image
+# add frontend image
+
+services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=panda
+      - POSTGRES_PASSWORD=panda
+      - POSTGRES_DB=microblog
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    # driver: local

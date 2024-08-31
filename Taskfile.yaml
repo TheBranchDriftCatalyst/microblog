@@ -1,0 +1,65 @@
+version: '3'
+
+# TODO: once at final phase ensure all thees commands work as expected
+
+tasks:
+  install:
+    desc: install developer code space dependencies
+    cmds:
+    - brew install go-task
+    - poetry install
+
+  lint:
+    desc: "Run linters"
+    cmds:
+    - black --check .
+    # - flake8 .
+    - isort --check-only .
+    - mypy backend
+    - mypy management
+
+  fix_lint:
+    desc: "Fix linting issues"
+    cmds:
+    - black .
+    - isort .
+    # - autoflake --in-place --recursive --remove-all-unused-imports --remove-unused-variables .
+
+  seed:
+    desc: "Seed the database with initial data"
+    cmds:
+    - python manage.py seed
+
+  make_migrations:
+    cmds:
+    - python manage.py makemigrations
+    desc: "Create new migrations based on the changes detected to your models"
+
+  migrate:
+    deps:
+    - make_migrations
+    cmds:
+    - python manage.py migrate
+    desc: "Apply the migrations to your database"
+
+  watch:
+    cmds:
+    - uvicorn backend.asgi:application --reload
+
+  serve:
+    desc: "Start the server"
+    cmds:
+    - uvicorn backend.asgi:application
+
+  dev:
+    desc: "Run make_migrations, migrate, and start the server in live reload mode"
+    cmds:
+    - docker compose up -d
+    - sleep 5
+    - task: migrate
+    - task: watch
+
+  build:
+    desc: "Build the project"
+    cmds:
+    - "echo TODO: implement this command"

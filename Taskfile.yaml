@@ -42,6 +42,11 @@ tasks:
     - python manage.py migrate
     desc: "Apply the migrations to your database"
 
+  # setup_db:
+  #   desc: "Setup the database"
+  #   cmds:
+  #   - python manage.py setup_db
+
   watch:
     cmds:
     - uvicorn backend.asgi:application --reload

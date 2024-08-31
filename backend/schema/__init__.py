@@ -1,2 +1,2 @@
-from .blog_post import *
-from .user import *
+from .blog_posts import *
+from .users import *

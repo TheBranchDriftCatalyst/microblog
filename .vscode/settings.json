@@ -5,11 +5,11 @@
             "server": "localhost",
             "port": 5432,
             "driver": "PostgreSQL",
-            "name": "Microblog",
-            "group": "DevLocal",
             "database": "microblog",
             "username": "panda",
-            "password": "panda"
+            "password": "panda",
+            "name": "Microblog",
+            "group": "DevLocal"
         }
     ]
 }

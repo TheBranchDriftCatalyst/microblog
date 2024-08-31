@@ -1,12 +1,11 @@
 from typing import List
 
 from django.shortcuts import get_object_or_404
+from models.blog_posts import BlogPost
+from models.users import User
 from ninja import Router
-
-from backend.models.blog_post import BlogPost
-from backend.models.user import User
-from backend.schema.blog_post import (BlogPostCreateSchema, BlogPostSchema,
-                                      BlogPostUpdateSchema)
+from schema.blog_posts import (BlogPostCreateSchema, BlogPostSchema,
+                               BlogPostUpdateSchema)
 
 router = Router()
 

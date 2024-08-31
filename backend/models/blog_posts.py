@@ -1,8 +1,7 @@
 import markdown
 from django.db import models
 from django.utils.text import slugify
-
-from backend.models.user import User
+from models.users import User
 
 
 class BlogPost(models.Model):

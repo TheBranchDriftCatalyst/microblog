@@ -1,10 +1,9 @@
 from typing import List
 
 from django.shortcuts import get_object_or_404
+from models.users import User
 from ninja import Router
-
-from backend.models.user import User
-from backend.schema.user import UserCreateSchema, UserSchema, UserUpdateSchema
+from schema.users import UserCreateSchema, UserSchema, UserUpdateSchema
 
 router = Router()
 

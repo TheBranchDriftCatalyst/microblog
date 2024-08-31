@@ -101,8 +101,9 @@ classDiagram
     - 2: Better Dev experience for final product with a useful readme.yaml
   - At implementation phase i wont have to think about what to implment jsut how to implement and can crush tasks.
 - Look into unknown tech requirements and understand the scope of what it can handle (orm, api, crud, etc, api docs and best opractices.) i.e., 
-- 2 Create a UML diagram of the database
-- Ideally, generate schema FROM models as well
+  - 2 Create a UML diagram of the database
+  - Ideally, generate schema FROM models as well
+  - MVP
 
 Possible Questions
 - Why two main folders?

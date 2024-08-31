@@ -60,8 +60,8 @@ tasks:
     desc: "Run make_migrations, migrate, and start the server in live reload mode"
     cmds:
     - docker compose up -d
-    - sleep 5
-    - task: migrate
+    # - sleep 5
+    # - task: migrate
     - task: watch
 
   build:

@@ -3,10 +3,14 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from ..managers import UsersManager
+from backend.managers.users import UsersManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    
+    class Meta:
+        app_label = 'backend'
+    
     email = models.EmailField(_("email address"), unique=True)
     username = models.CharField(max_length=150, blank=True)
     is_staff = models.BooleanField(default=False)

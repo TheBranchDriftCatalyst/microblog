@@ -4,14 +4,12 @@ from backend.models import User
 
 # TODO: make this accept cli args or ENV args
 
-
 class Command(BaseCommand):
     help = "Create initial admin user"
 
     def handle(self, *args, **kwargs):
         self.stdout.write("Creating admin user...")
 
-        # Create a sample user
         user, created = User.objects.get_or_create(
             username="admin",
             defaults={

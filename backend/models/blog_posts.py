@@ -1,10 +1,11 @@
 import markdown
 from django.db import models
 from django.utils.text import slugify
-from models.users import User
+from .users import User
 
 
 class BlogPost(models.Model):
+    
     title: models.CharField = models.CharField(max_length=255)
     content: models.TextField = models.TextField()
     author: models.ForeignKey = models.ForeignKey(
@@ -38,3 +39,4 @@ class BlogPost(models.Model):
         indexes = [
             models.Index(fields=["title", "content"]),  # Makes content searchable
         ]
+        # app_label = "backend"

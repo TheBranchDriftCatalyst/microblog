@@ -59,6 +59,7 @@ tasks:
   dev:
     desc: "Run make_migrations, migrate, and start the server in live reload mode"
     cmds:
+    - find . -name "__pycache__" -exec rm -rf {} +
     - docker compose up -d
     # - sleep 5
     # - task: migrate

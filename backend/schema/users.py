@@ -6,8 +6,8 @@ from ninja import Schema
 class UserSchema(Schema):
     id: int
     username: str
-    first_name: str
-    last_name: str
+    first_name: Optional[str] # TODO: remove these from the model
+    last_name: Optional[str] # TODO: remove these from the model
     email: str
 
 

@@ -1,6 +1,7 @@
 from typing import List
 
 from django.shortcuts import get_object_or_404
+from backend.schema.blog_posts import BlogPostSchema
 from backend.models.users import User
 from ninja import Router
 from backend.schema.users import UserCreateSchema, UserSchema, UserUpdateSchema
@@ -39,8 +40,8 @@ def delete_user(request, user_id: int):
 def list_users(request):
     return list(User.objects.all())
 
-
-@router.get("/{user_id}/posts", response=List[UserSchema])
+#  Additional non crud method/endpointss
+@router.get("/{user_id}/posts", response=List[BlogPostSchema])
 def get_posts(request, user_id: int):
     user = get_object_or_404(User, id=user_id)
     return list(user.blog_posts.all())

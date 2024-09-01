@@ -41,7 +41,7 @@ Tech Stack:
   - [ ] Login Page
   - [ ] User Profile Page (BONUS)
     - [ ] view list of blog posts
-    - [ ] 
+    - [ ] wtf????
   - Blog CRUD Page (bonus)
 
 ## Dev Setup
@@ -93,7 +93,7 @@ classDiagram
 
 ```
 
-## My Process
+## My Process and Notes
 
 - 1 Decompose the Exercise document into Github REPO readme.md
   - This allows two things.

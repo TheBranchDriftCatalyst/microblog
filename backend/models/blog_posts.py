@@ -2,8 +2,10 @@ import markdown
 from django.db import models
 from django.utils.text import slugify
 from .users import User
+from django.contrib import admin
 
-
+# @admin.register()
+# class BlogPost(models.Model):
 class BlogPost(models.Model):
     
     title: models.CharField = models.CharField(max_length=255)

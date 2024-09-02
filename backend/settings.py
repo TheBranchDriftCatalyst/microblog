@@ -29,6 +29,17 @@ DEBUG = True  # TODO: change this to dynamic
 # TODO: COORS!!! :/  This will need to be altered depending on env for now, we can do * for now
 ALLOWED_HOSTS: list[str] = []
 
+# CORS_ALLOWED_ORIGIN_REGEXES = [
+#     "*"
+# ]
+
+CORS_ALLOW_ALL_ORIGINS=True
+
+# CORS_ALLOWED_ORIGINS = [
+#     # Allow your Next.js app's origin
+#     "http://localhost:3000/",
+# ]
+
 AUTH_USER_MODEL = "backend.User"
 
 # Application definition
@@ -40,6 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
     "ninja_extra",
     "backend",
 ]
@@ -47,6 +59,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",

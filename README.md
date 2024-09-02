@@ -52,9 +52,13 @@ poetry install
 poetry shell
 ```
 
-Task file for automated tasks
-  - Database Tasks
+## Urls
 
+https://github.com/TheBranchDriftCatalyst/microblog/tree/master
+http://localhost:5100/
+http://127.0.0.1:8000/api/docs#/
+http://127.0.0.1:8000/admin/
+http://localhost:6006/?path=/story/components-catalystheader--default
 
 ## Database
 

@@ -3,6 +3,82 @@ import NavigationItem from "../NavigationHeader/NavigationItem";
 import RegisterOrLoginCard from "@/common/cards/RegisterOrLoginCard/RegisterOrLoginCard";
 import { useAuth } from "@/common/auth/hooks/useAuth";
 
+
+import React from "react";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { Loader, AlertCircle } from "lucide-react";
+import { getUser } from "@/common/api/users";
+
+// Define the TypeScript interface based on the UserSchema
+interface UserSchema {
+  id: number;
+  username: string;
+  first_name?: string;
+  last_name?: string;
+  email: string;
+}
+
+// Props for the UserCard component
+interface UserCardProps {
+  userId: number;
+}
+
+// Function to fetch user data from the API
+const fetchUser = async (userId: number): Promise<UserSchema> => {
+  const response = await axios.get<UserSchema>(`/api/users/${userId}/`);
+  return response.data;
+};
+
+// The UserCard component
+const UserCard: React.FC<UserCardProps> = ({ userId }) => {
+  const { data: user, error, isLoading } = useQuery(["user", userId], () => {
+    getUser(userId);
+  })
+
+  // Handle loading state
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-32">
+        <Loader className="animate-spin w-8 h-8 text-blue-500" />
+      </div>
+    );
+  }
+
+  // Handle error state
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-32">
+        <AlertCircle className="w-8 h-8 text-red-500" />
+        <p className="ml-2 text-red-500">Error fetching user data</p>
+      </div>
+    );
+  }
+
+  // Render user data
+  return (
+    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-4">
+      <div className="px-6 py-4">
+        <div className="font-bold text-xl mb-2">{user?.username}</div>
+        <p className="text-gray-700 text-base">
+          Email: <span className="text-gray-900">{user?.email}</span>
+        </p>
+        {user?.first_name && (
+          <p className="text-gray-700 text-base">
+            First Name: <span className="text-gray-900">{user.first_name}</span>
+          </p>
+        )}
+        {user?.last_name && (
+          <p className="text-gray-700 text-base">
+            Last Name: <span className="text-gray-900">{user.last_name}</span>
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+
 export const UserNavigationUnit = ({}) => {
 
   const { login, isAuthenticated } = useAuth();
@@ -28,7 +104,7 @@ export const UserNavigationUnit = ({}) => {
   const userLoggedIn = (
     <NavigationItem key="Profile" title="Profile">
       <ul className="p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-        {/* TODO: create user profile card */}
+        <UserCard userId={1} />
       </ul>
     </NavigationItem>
   )

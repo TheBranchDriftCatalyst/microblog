@@ -2,9 +2,13 @@ import { NavigationMenuLink } from "@/common/ui/navigation-menu";
 import NavigationItem, { NavigationListItem } from "../NavigationHeader/NavigationItem";
 import { title } from "process";
 import { LucideAlarmClock } from "lucide-react";
+import { useQuery } from "react-query";
 
 export const StoriesNavigation = ({}) => {
 
+  const { data } = useQuery("stories", async () => {
+    
+  });
 
   
   return (

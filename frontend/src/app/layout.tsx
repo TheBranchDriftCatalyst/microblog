@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+
 import CatalystHeader from "@/common/components/CatalystHeader/CatalystHeader";
 import NavigationItem, { NavigationListItem } from "@/common/components/NavigationHeader/NavigationItem";
 import { NavigationMenuLink } from "@/common/ui/navigation-menu";
 import { MicroblogProviderStack } from "@/common/contexts/MicroblogProviderStack";
 
 const inter = Inter({ subsets: ["latin"] });
+
+import "./globals.css";
+import '@mdxeditor/editor/style.css'
 
 export const metadata: Metadata = {
   title: "Create Next App",

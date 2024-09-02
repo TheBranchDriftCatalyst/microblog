@@ -9,28 +9,8 @@ import Image from "next/image";
 import { useEffect } from "react";
 import MicroBlogHeader from "@/common/header/MicroBlogHeader";
 
-// TODO: remove the header state management from here, create a provider for it and add it to the provider stack, then use the useHeader 
-// to register the header state based on the auth state
-
-// const MicroBlogHeader = () => {
-//   const { title, setTitle, avatar, setAvatar } = useHeader({
-//     title: "Initial Title",
-//     avatar: <img src="https://github.com/shadcn.png" alt="Avatar" />,
-//   });
-
-//   return (
-//     <CatalystHeader
-//       title={title}
-//       avatar={avatar}
-//       navigationItems={[
-//         (<StoriesNavigation key="stories_nav" />), 
-//         (<UserNavigationUnit key="users_nav" />)
-//       ]}
-//     />
-//   );
-// }
-
 export default function Home() {
+  
 
   return (
     <main>

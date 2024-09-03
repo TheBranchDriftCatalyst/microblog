@@ -2,23 +2,8 @@ from typing import Optional, get_type_hints, Type
 
 from ninja import Schema
 
-# For debugging our dto chain because these validation errors are a pain and require a db nuke when changed
-def make_optional(schema_cls: Type[Schema]):
-    """Modify the schema class to make all fields Optional."""
-    annotations = get_type_hints(schema_cls)
-    for key, value in annotations.items():
-        if not hasattr(value, "__origin__") or value.__origin__ is not Optional:
-            annotations[key] = Optional[value]
-    schema_cls.__annotations__ = annotations
-    return schema_cls
 
-
-class BaseSchema(Schema):
-    def __init_subclass__(cls, **kwargs):
-        super().__init_subclass__(**kwargs)
-        make_optional(cls)
-
-class UserSchema(BaseSchema):
+class UserSchema(Schema):
     id: int
     username: str
     avatar: str
@@ -27,7 +12,7 @@ class UserSchema(BaseSchema):
     email: str
 
 
-class UserCreateSchema(BaseSchema):
+class UserCreateSchema(Schema):
     username: Optional[str]
     avatar: Optional[str]
     password: str
@@ -36,13 +21,7 @@ class UserCreateSchema(BaseSchema):
     email: Optional[str]
 
 
-class UserUpdateSchema(BaseSchema):
+class UserUpdateSchema(Schema):
     username: Optional[str]
-    # first_name: Optional[str]
-    # last_name: Optional[str]
+    avatar: Optional[str]
     email: Optional[str]
-
-
-class UserCredentialsSchema(BaseSchema):
-    user_id: int
-    password_hash: str

@@ -34,9 +34,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   const registerMutation = useMutation(
-    async ({ username, password }: { username: string; password: string }) => {
-      const response = await createUser({username, password, email: username});
-      console.log("creating user", {username, password})
+    async (data) => {
+      console.log("creating user", {data})
+      const response = await createUser(data);
       return response
       // return {
       //   access: response.access,

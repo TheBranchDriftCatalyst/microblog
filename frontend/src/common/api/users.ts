@@ -6,6 +6,7 @@ export interface UserCreateSchema {
   username: string;
   email: string;
   password: string;
+  avatar: string
   // Add any other required fields for user creation
 }
 
@@ -19,6 +20,7 @@ export interface UserSchema {
   id: number;
   username: string;
   email: string;
+  avatar: string;
   created_at: string; // Assuming this is a DateTime field
   updated_at: string; // Assuming this is a DateTime field
   // Add any other fields relevant to the User model

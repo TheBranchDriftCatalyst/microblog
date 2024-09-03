@@ -19,6 +19,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
+    # avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    avatar = models.URLField(blank=True)
+    
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

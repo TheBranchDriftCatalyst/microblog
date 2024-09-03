@@ -1,6 +1,6 @@
 # About this project
 
-![Frontend Documentation](./frontend/README.md)
+[Frontend Documentation](./frontend/README.md)
 
 ## Running the App
 

@@ -4,7 +4,14 @@
 
 ## Running the App
 
+** short run command **
+
+```sh
+foreman start
+```
+
 **Backend**
+
 
 ```sh
 
@@ -45,9 +52,6 @@ task storybook # i.e., yarn storybook
 
 ```
 
-
-
-
 ## Backend
 
 Tech Stack:
@@ -65,28 +69,29 @@ Tech Stack:
 
 - Requirements
   - Django Ninja ( MVC framework)
-  - [ ] Readme.md
-  - [ ] devX
+  - [80] Readme.md
+  - [90] devX
 - Models
   - [x]  Create Databases>UML section
     - [ ]  Models to achieve functionality
       - User → Blog Post
       - User → Authentication (handled by JWT)
-      - [ ] Users can register and log in.
-      - [ ] Blog posts should include a
+      - [95] Users can register and log in.
+      - [90]] Blog posts should include a
         - [ ] View
           - title, content, author (linked to User), and timestamp.
   - User Stories
     - Users can (using JWT or token-based auth):
-      - [ ] register
-      - [ ] login
-    - [ ] User can create Post
-    - [ ] USer can edit post
-    - [ ] View Posts
-    - [ ] 
+      - [90] register
+      - [90] login
+    - [] User can create Post
+    - [50] USer can edit post
+    - [75] View Posts
 - Bonus
-  - [ ] Cloud Deployment
-  - [ ] User Profile Page
+  - ~Cloud Deployment~
+    - Docker files are skaffolded and need to be debugged
+  - [50] User Profile Page
+    - This is more of a user profile card right now it just dumps the json me endpoint 
     - [x] me endpoint (JWT poc)
   - [ ] Basic Testing
     - [ ] pytest router crud opoerations integration

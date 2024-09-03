@@ -1,12 +1,14 @@
 import markdown
+from django.contrib import admin
 from django.db import models
 from django.utils.text import slugify
+
 from .users import User
-from django.contrib import admin
+
 
 # class BlogPost(models.Model):
 class BlogPost(models.Model):
-    
+
     title: models.CharField = models.CharField(max_length=255)
     content: models.TextField = models.TextField()
     author: models.ForeignKey = models.ForeignKey(

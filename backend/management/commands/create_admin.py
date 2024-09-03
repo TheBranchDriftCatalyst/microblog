@@ -4,6 +4,7 @@ from backend.models import User
 
 # TODO: make this accept cli args or ENV args
 
+
 class Command(BaseCommand):
     help = "Create initial admin user"
 

@@ -1,4 +1,4 @@
-from typing import Optional, get_type_hints, Type
+from typing import Optional, Type, get_type_hints
 
 from ninja import Schema
 

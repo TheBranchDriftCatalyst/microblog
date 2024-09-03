@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from ninja import TestClient
+
 from backend.models.users import User
 from backend.schema.users import UserCreateSchema, UserUpdateSchema
 from backend.urls import urls as api

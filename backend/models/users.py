@@ -1,18 +1,18 @@
 import django
 import django.contrib
+from django.contrib import admin
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.contrib import admin
-
 
 from backend.managers.users import UsersManager
+
 
 class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
-        app_label = 'backend'
+        app_label = "backend"
 
     email = models.EmailField(_("email address"), unique=True)
     username = models.CharField(max_length=150, blank=True)
@@ -21,7 +21,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
     # avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     avatar = models.URLField(blank=True)
-    
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -41,4 +40,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 #     def __str__(self) -> str:
 #         return f"Credentials for {self.user.username}"
-

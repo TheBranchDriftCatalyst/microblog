@@ -1,13 +1,14 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from ninja import NinjaAPI
+from ninja_extra import NinjaExtraAPI
+from ninja_jwt.controller import NinjaJWTDefaultController
+
 # Directly importing the routers
 from backend.routers.blog_posts import router as blog_router
 from backend.routers.users import router as user_router
-from django.conf import settings
-from django.conf.urls.static import static
-from ninja_jwt.controller import NinjaJWTDefaultController
-from ninja_extra import NinjaExtraAPI
 
 api = NinjaExtraAPI()
 api.register_controllers(NinjaJWTDefaultController)

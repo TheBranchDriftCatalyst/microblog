@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from backend.models import BlogPost
 
 
@@ -10,7 +11,5 @@ def publish_selected_posts(modeladmin, request, queryset):
 
 @admin.register(BlogPost)
 class PostAdmin(admin.ModelAdmin):
-    list_display = [
-        "title", "author", "created_at", "updated_at"
-    ]
+    list_display = ["title", "author", "created_at", "updated_at"]
     actions = [publish_selected_posts]

@@ -4,34 +4,34 @@
 
 ## Running the App
 
-** short run command **
+### Easy all in one dev command
+
+> Ports are not harcoded but are required for CORs.  
+> TODO: hardcode these port mappings for better devX
 
 ```sh
 foreman start
 ```
 
-**Backend**
+### Starting the Backend
 
+**Backend**
 
 ```sh
 
-# If you have issues with task file the relvant commands can be run manually (see task file for task commands)
+# If you have issues with task file the relevant commands can 
+# be run manually (see task file for task commands)
 
 # ensure taskfile is installed
 brew install go-task # (for mac)
-
 poetry install
-
 poetry shell
-
 # Start PG database
 docker compose up -d
-
 task migrate
-
 task seed
 
-# User admin created
+# User admin created by the seed command
 # email = panda@gmail.com
 # password = turbopookipanda
 
@@ -40,7 +40,7 @@ task dev
 
 ```
 
-**Frontend**
+### Starting the Frontend
   
 ```sh
 cd frontend/
@@ -51,6 +51,10 @@ task dev:next # ie/. yarn dev:next
 task storybook # i.e., yarn storybook
 
 ```
+
+## Building The App
+
+> TODO: build commands no currently enabled, must do final pass for all linting checks
 
 ## Backend
 

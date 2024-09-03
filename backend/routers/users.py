@@ -1,12 +1,13 @@
 from typing import List
 
-from django.shortcuts import get_object_or_404
 import structlog
-from backend.schema.blog_posts import BlogPostSchema
-from backend.models.users import User
+from django.shortcuts import get_object_or_404
 from ninja import Router
-from backend.schema.users import UserCreateSchema, UserSchema, UserUpdateSchema
 from ninja_jwt.authentication import JWTAuth
+
+from backend.models.users import User
+from backend.schema.blog_posts import BlogPostSchema
+from backend.schema.users import UserCreateSchema, UserSchema, UserUpdateSchema
 
 router = Router()
 logger = structlog.get_logger(__name__)
@@ -44,18 +45,19 @@ def delete_user(request, user_id: int):
 def list_users(request):
     return list(User.objects.all())
 
+
 #  Additional non crud method/endpointss
 @router.get("/{user_id}/posts", response=List[BlogPostSchema])
 def get_posts(request, user_id: int):
     user = get_object_or_404(User, id=user_id)
     return list(user.blog_posts.all())
 
+
 # from ninja_jwt.authentication import JWTAuth
 
 
-@router.get("/me", tags=['Auth'], auth=JWTAuth())
+@router.get("/me", tags=["Auth"], auth=JWTAuth())
 def get_current_user(request):
     # The user is already authenticated by JWTAuth
     user = request.auth
     return {"id": user.id, "username": user.username, "email": user.email}
-

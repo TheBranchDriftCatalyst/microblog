@@ -72,8 +72,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     async ({ username, password }: { username: string; password: string }) => {
       const response = await apiLogin(username, password);
       return {
-        access: response.access,
-        refresh: response.refresh,
+        // change this to response.access if not using sliding tokens
+        access: response.token,
+        // refresh: response.refresh,
       };
     },
     {

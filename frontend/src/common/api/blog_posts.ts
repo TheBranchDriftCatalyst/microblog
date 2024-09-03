@@ -3,6 +3,9 @@ import { AxiosResponse } from "axios";
 import { get } from "http";
 import apiClient from "./api_client";
 
+// THIS file should be replaced with: 
+// /Users/panda/catalyst-devspace/repos/active/microblog/frontend/src/common/hooks/api/useBlogPosts.tsx
+
 export interface BlogPostCreateSchema {
   title: string;
   content: string;

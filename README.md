@@ -7,7 +7,7 @@
 - until all auth lifecycle hooks are created (verify and refresh tokens) the frontend auth is functional but prone to edge cases (e.g., token timeout not handled).
 - Until frontend auth is COMPLETED i have not added auth to any of the API endpoints EXCEPT for api/users/me which is the initial auth POC and is working.  It is merely a matter of decorating the api routes with the JWT auth annotation.
 - Not all user data objects have been linked ot the frontend, some of these like avatar are hardcoded for now
-- storybook snapshot testing is present yet not implemented here but should be relatively easy to do
+
 ## Running the App
 
 | Link Description                          | URL                                                |
@@ -76,6 +76,8 @@ yarn storybook
 yarn playwright install                                             
 ```
 
+### Backend Tests
+
 ## Building The App
 
 > TODO: build commands no currently enabled, must do final pass for all linting checks for this as well
@@ -87,6 +89,7 @@ classDiagram
     class User {
         +int id
         +string username
+        +string avatar
         +string first_name
         +string last_name
         +string email
@@ -132,6 +135,10 @@ I struggled with the question of wheather i wanted django to serve the app or no
 Slightly due to the above, handling auth was possibly the most time intensive thing.  Might consider next time looking into next-auth however, the auth flow for JWT tokens is not actually complicated but it is not trivial either.  The frontend auth state management works but needs to be polished and handle token refresh and auto logout in a more user friendly way- torn between sliding and non sliding jwt tokens
 
 - UNtil refresh, sliding and ful lauth context lifecycle hooks are implemented frontend auth is at the moment brittle.
+
+
+**Frontend API**
+This is a pattern i would like to solidify and get rid of frontend api entirely and move to just api useHooks (useRecentStories, useCreatePost, etc).  This is a better abstraction and will make the code more maintainable.
 
 # Misc Notes
 

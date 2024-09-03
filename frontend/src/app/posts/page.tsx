@@ -49,11 +49,11 @@ export default function Home() {
                 className="shadow-lg hover:shadow-2xl transition-shadow duration-300"
               >
                 <Card
-                  className="cursor-pointer bg-white rounded-lg p-6"
+                  className="cursor-pointer rounded-lg p-6"
                   onClick={() => handleCardClick(blog.id)}
                 >
                   <CardHeader className="border-b pb-4 mb-4">
-                    <CardTitle className="text-2xl font-bold text-gray-800">
+                    <CardTitle className="text-2xl font-bold">
                       {blog.title}
                     </CardTitle>
                     <p className="text-sm text-gray-500 mt-2">{new Date(blog.created_at).toLocaleDateString()}</p>

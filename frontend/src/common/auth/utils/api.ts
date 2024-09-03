@@ -6,10 +6,6 @@ export const apiLogin = async (username: string, password: string) => {
   return response.data; // Assuming the response contains the token
 };
 
-export const registerUser = async (username: string, password: string) => {
-  const response = await axios.post(`${API_URL}/api/users/`, { username, password });
-  return response.data;
-};
 
 // // Create an instance of Axios
 // const axiosInstance = axios.create({

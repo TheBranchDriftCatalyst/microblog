@@ -23,7 +23,7 @@ export const BlogPostNavUnit = ({}) => {
         )}></NavigationListItem>
         {
         take(blogs, 10)?.map((blog, idx) => (
-          <NavigationListItem key={idx} href={`/docs/{postId}`} title={blog.title} className="truncate ...">
+          <NavigationListItem key={idx} href={`/posts/${blog.id}`} title={blog.title} className="truncate ...">
             {blog.content}
           </NavigationListItem>
         ))

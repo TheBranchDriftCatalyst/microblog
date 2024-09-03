@@ -58,7 +58,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = () => {
     setAccessToken(null);
     setRefreshToken(null);
-    router.push('/login');
+    localStorage.clear()
+    router.push('/');
   };
 
   const isAuthenticated = !!accessToken;

@@ -7,8 +7,10 @@ import { useAuth } from "@/common/auth/hooks/useAuth";
 import React from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { Loader, AlertCircle } from "lucide-react";
+import { Loader, AlertCircle, DoorClosed } from "lucide-react";
 import { getMe, getUser } from "@/common/api/users";
+import { useRegister } from "@/common/auth/hooks/useRegister";
+import Button from "@/common/ui/button";
 
 // Define the TypeScript interface based on the UserSchema
 interface UserSchema {
@@ -69,14 +71,17 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
 
 export const UserNavigationUnit = ({}) => {
 
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, logout } = useAuth();
+  const { register } = useRegister()
+
 
   const handleLogin = ({username: email, password}: {username: string, password: string}) => { 
     login(email, password);
   }
 
-  const handleRegistration = () => { 
+  const handleRegistration = ({username: email, password}: {username: string, password: string}) => { 
     console.log('TODO: handle registration to users api endpoint')
+    register({password, email})
   }
 
   const userNotLoggedIn = (
@@ -90,9 +95,10 @@ export const UserNavigationUnit = ({}) => {
   )
 
   const userLoggedIn = (
-    <NavigationItem key="Profile" title="Profile">
+    <NavigationItem key="profile_nav" title="Profile">
       <ul className="p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
         <UserCard userId={1} />
+        <Button onClick={() => logout()}><DoorClosed className="h-6 w-6" /> Logout</Button>
       </ul>
     </NavigationItem>
   )

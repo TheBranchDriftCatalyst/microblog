@@ -1,76 +1,65 @@
 "use client";
 
-import { listBlogPosts } from "@/common/api/blog_posts";
-import { useQuery } from "react-query";
+import { listBlogPosts, createBlogPost } from "@/common/api/blog_posts";
+import { useMutation, useQuery } from "react-query";
 import { Loader, AlertCircle } from "lucide-react";
 import MicroBlogHeader from "@/common/header/MicroBlogHeader";
 import { Tilt } from '@jdion/tilt-react'
 import { useParams, useRouter } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/common/ui/card";
-
-import Markdown from 'react-markdown'
-
-// Props for the MarkdownRenderer component
-// interface MarkdownRendererProps {
-//   content: string;
-// }
-
-// const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
-//   const [renderedContent, setRenderedContent] = useState<string>("");
-
-//   useEffect(() => {
-//     // Convert the Markdown content to HTML
-//     const convertMarkdownToHtml = async () => {
-//       const result = await remark().use(html).process(content);
-//       setRenderedContent(result.toString());
-//     };
-
-//     convertMarkdownToHtml();
-//   }, [content]);
-
-//   return (
-//     <div
-//       className="text-gray-600"
-//       dangerouslySetInnerHTML={{ __html: renderedContent }}
-//     />
-//   );
-// };
-
-
+import { useState } from "react";
 
 export default function Home() {
-//   const router = useRouter();
-//   const params = useParams();
+  const router = useRouter();
+  const [newPostContent, setNewPostContent] = useState("");
 
-  // Use React Query's useQuery hook to fetch blogs
-  const { data: blogs, error, isLoading } = useQuery("blogs", listBlogPosts);
-
-  // Handle different states: loading, error, and successful data fetching
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader className="animate-spin w-10 h-10 text-blue-500" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <AlertCircle className="w-10 h-10 text-red-500" />
-        <p className="ml-2 text-red-500">Error fetching blogs</p>
-      </div>
-    );
-  }
+  // Use mutation to create a new blog post
+  const createPostMutation = useMutation(createBlogPost, {
+    onSuccess: (data) => {
+      // Redirect to the new blog post page
+      router.push(`/posts/${data.id}`);
+    },
+    onError: (error) => {
+      console.error("Failed to create a blog post", error);
+    }
+  });
 
   const handleCardClick = (postId: number) => {
     router.push(`/posts/${postId}`);
+  };
+
+  const handleCreatePost = () => {
+    createPostMutation.mutate({ content: newPostContent, title: "New Post", author_id: 1 });
   };
 
   return (
     <main className="min-h-screen bg-gray-100">
       <MicroBlogHeader />
       <section className="container mx-auto py-8 px-4">
+        <div className="mb-4">
+          {/* Simple markdown text input */}
+          <textarea
+            className="w-full p-2 border rounded"
+            placeholder="Write your blog post here..."
+            value={newPostContent}
+            onChange={(e) => setNewPostContent(e.target.value)}
+          />
+        </div>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          onClick={handleCreatePost}
+          disabled={createPostMutation.isLoading}
+        >
+          {createPostMutation.isLoading ? "Creating..." : "Create Post"}
+        </button>
+        {createPostMutation.isError && (
+          <div className="text-red-500 mt-2 flex items-center">
+            <AlertCircle className="mr-2" />
+            Failed to create post. Please try again.
+            {/* {createPost} */}
+          </div>
+        )}
+        {/* TODO: Add hovering buttons to save the post */}
         TODO: create post view here
       </section>
     </main>

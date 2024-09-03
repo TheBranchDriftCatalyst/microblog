@@ -24,12 +24,12 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "--num-users", type=int, default=5, help="Number of regular users to create"
+            "--num-users", type=int, default=20, help="Number of regular users to create"
         )
         parser.add_argument(
             "--max-posts-per-user",
             type=int,
-            default=10,
+            default=20,
             help="Max number of posts per user",
         )
 

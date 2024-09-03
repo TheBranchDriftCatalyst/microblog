@@ -1,16 +1,20 @@
 import { useMutation } from 'react-query';
-import { apiRegister } from '../utils/api';
 import { useAuth } from './useAuth';
+import { createUser } from '@/common/api/users';
 
 export const useRegister = () => {
   const { login } = useAuth();
 
-  const mutation = useMutation((credentials: { username: string; password: string }) => {
-    return apiRegister(credentials.username, credentials.password);
+  const mutation = useMutation(({ username, email, password }) => {
+    return createUser({
+      username: username,
+      email: username,
+      password: password,
+    });
   }, {
     onSuccess: (data, variables) => {
       // Automatically log in after successful registration
-      login(variables.username, variables.password);
+      // login(variables.username, variables.password);
     }
   });
 

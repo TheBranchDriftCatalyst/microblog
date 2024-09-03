@@ -1,39 +1,55 @@
 ## About this project
 
+![](./frontend/README.md)
+
+## Backend
+
 Tech Stack:
-    - swagger??
-    - integrated docs???
+    - Swagger
+    - JWT Auth
     - Docker
     - Django NINJA
+    - DJango ORM
+    - DJango admin
     - pytest
       - (less verbose than unittest tbh)
       - bonus frontend tests
       - tailwind
+      - 
 
 - Requirements
   - Django Ninja ( MVC framework)
   - [ ] Readme.md
   - [ ] devX
 - Models
-  - [ ]  Create Databases>UML section
+  - [x]  Create Databases>UML section
     - [ ]  Models to achieve functionality
       - User → Blog Post
-      - User → Authentication
+      - User → Authentication (handled by JWT)
       - [ ] Users can register and log in.
-      - [ ] Blog posts should include a title, content, author (linked to User), and timestamp.
+      - [ ] Blog posts should include a
+        - [ ] View
+          - title, content, author (linked to User), and timestamp.
   - User Stories
     - Users can (using JWT or token-based auth):
       - [ ] register
       - [ ] login
+    - [ ] User can create Post
+    - [ ] USer can edit post
+    - [ ] View Posts
+    - [ ] 
 - Bonus
   - [ ] Cloud Deployment
   - [ ] User Profile Page
+    - [x] me endpoint (JWT poc)
   - [ ] Basic Testing
+    - [ ] pytest router crud opoerations integration
+    - [ ] jest snapshot tests
 
 - API
   - Register USER
   - Login User
-    - [ ] me endpoint
+    - [x] me endpoint
   - CRUD Blog Posts
   - user profile (bonus)
 
@@ -46,6 +62,8 @@ Tech Stack:
   - Blog CRUD Page (bonus)
 
 ## Dev Setup
+
+### Backend
 
 ```sh
 poetry install
@@ -71,7 +89,7 @@ classDiagram
         +string first_name
         +string last_name
         +string email
-        +CRUD_ACTIONS()
+        +CRUD_ACTIONS(...)
     }
 
     class BlogPost {
@@ -81,7 +99,7 @@ classDiagram
         +datetime created_at
         +datetime updated_at
         +int author_id
-        +CRUD_ACTIONS()
+        +CRUD_ACTIONS(...)
     }
 
     class UserCredentials {
@@ -98,17 +116,17 @@ classDiagram
 
 ```
 
-## My Process and Notes
-
+### Misc 
 - 1 Decompose the Exercise document into Github REPO readme.md
   - This allows two things.
     - 1: creation of a implementation plan, necessary models and technology stack.
     - 2: Better Dev experience for final product with a useful readme.yaml
-  - At implementation phase i wont have to think about what to implment jsut how to implement and can crush tasks.
 - Look into unknown tech requirements and understand the scope of what it can handle (orm, api, crud, etc, api docs and best opractices.) i.e., 
   - 2 Create a UML diagram of the database
   - Ideally, generate schema FROM models as well
   - MVP
+- 
+
 
 Possible Questions
 - Why two main folders?

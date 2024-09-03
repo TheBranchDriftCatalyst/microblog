@@ -2,7 +2,7 @@
 import { useAuth } from "@/common/auth/hooks/useAuth";
 import { API_URL } from "@/common/auth/utils/api";
 import CatalystHeader from "@/common/components/CatalystHeader/CatalystHeader";
-import UserNavigationUnit from "@/common/components/navigation_units/LoginNavUnit";
+import UserNavigationUnit from "@/common/components/navigation_units/UserNavigationUnit";
 import StoriesNavigation from "@/common/components/navigation_units/BlogPostNavUnit";
 import MicroBlogHeader from "@/common/header/MicroBlogHeader";
 import axios from "axios";

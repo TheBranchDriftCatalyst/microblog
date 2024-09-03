@@ -18,7 +18,7 @@ export interface CatalystHeaderProps {
 
 export const CatalystHeader = ({ navigationItems, title, avatar }: CatalystHeaderProps) => {
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
+    <header suppressHydrationWarning={true} className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="ml-4 mr-4 flex justify-between">
         {/* Left Subgroup */}
         <div className="flex items-center">
@@ -27,7 +27,7 @@ export const CatalystHeader = ({ navigationItems, title, avatar }: CatalystHeade
             </div>
         </div>
         {/* Right Subgroup */}
-        <div className="flex items-center justify-around">
+        <div suppressHydrationWarning={true} className="flex items-center justify-around">
             <NavigationHeader direction="right">{navigationItems}</NavigationHeader>
             {avatar}
         </div>

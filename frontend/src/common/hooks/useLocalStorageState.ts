@@ -21,7 +21,7 @@ export const setToLocalStorage = <T>(key: string, value: T): void => {
     return;
   }
 
-  localStorage.setItem(key, value);
+  value == null ? null : localStorage.setItem(key, value);
 };
 
 /**

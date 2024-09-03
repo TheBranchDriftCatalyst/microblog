@@ -12,7 +12,7 @@ from backend.routers.users import router as user_router
 
 api = NinjaExtraAPI()
 api.register_controllers(NinjaJWTDefaultController)
-api.register_controllers(NinjaJWTSlidingController)
+# api.register_controllers(NinjaJWTSlidingController)
 
 
 # TODO: maybe change this from urls -> api.py

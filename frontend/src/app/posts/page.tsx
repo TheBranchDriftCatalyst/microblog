@@ -58,7 +58,7 @@ export default function Home() {
                     </CardTitle>
                     <p className="text-sm mt-2">{new Date(blog.created_at).toLocaleDateString()}</p>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent >
                     <Markdown className="prose line-clamp-3">{blog.content}</Markdown>
                   </CardContent>
                 </Card>

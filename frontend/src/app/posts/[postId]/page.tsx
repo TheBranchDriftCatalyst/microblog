@@ -1,4 +1,5 @@
 "use client";
+
 import { useAuth } from "@/common/auth/hooks/useAuth";
 import { API_URL } from "@/common/auth/utils/api";
 import CatalystHeader from "@/common/components/CatalystHeader/CatalystHeader";
@@ -11,10 +12,11 @@ import { useParams } from "next/navigation";
 import MarkdownEditorViewer from "@/common/components/MarkdownEditor/MarkdownEditorViewer";
 import { useHeader } from "@/common/components/CatalystHeader/CatalystHeaderProvider";
 import { useEffect } from "react";
-import { useControls } from 'leva'
+import { useControls } from "leva";
+import { AlertCircle } from "lucide-react";
 
 // InitializedMDXEditor.tsx
-import type { ForwardedRef } from 'react'
+import type { ForwardedRef } from "react";
 import {
   headingsPlugin,
   listsPlugin,
@@ -23,20 +25,13 @@ import {
   markdownShortcutPlugin,
   MDXEditor,
   type MDXEditorMethods,
-  type MDXEditorProps
-} from '@mdxeditor/editor'
+  type MDXEditorProps,
+} from "@mdxeditor/editor";
 
-import '@mdxeditor/editor/style.css';
+import "@mdxeditor/editor/style.css";
 import { getBlogPost } from "@/common/api/blog_posts";
 import Markdown from "react-markdown";
 
-// TODO:
-// Add the following hover dropdown buttons
-// - delete post
-// - save post
-// - edit post | view post (switch between markdown render and text input views)
-
-// Only import this to the next file
 export function InitializedMDXEditor({
   editorRef,
   ...props
@@ -44,28 +39,19 @@ export function InitializedMDXEditor({
   return (
     <MDXEditor
       plugins={[
-        // Example Plugin Usage
         headingsPlugin(),
         listsPlugin(),
         quotePlugin(),
         thematicBreakPlugin(),
-        markdownShortcutPlugin()
+        markdownShortcutPlugin(),
       ]}
       {...props}
       ref={editorRef}
     />
-  )
+  );
 }
 
 // Define a function to fetch the blog post by ID
-const fetchPostById = async (postId: string | string[] | undefined | number) => {
-  if (!postId) {
-    throw new Error("Post ID is required");
-  }
-  const { data } = await axios.get(`${API_URL}/api/blogs/${postId}`);
-  return data;
-};
-
 export default function Home() {
   const params = useParams();
   const { setTitle } = useHeader();
@@ -76,46 +62,73 @@ export default function Home() {
     enabled: !!postId, // Only run the query if postId is available
   });
 
-  const { userIsAuthor } = useControls({userIsAuthor: false}) // TODO: flesh this out at some point
+  const { userIsAuthor } = useControls({ userIsAuthor: false }); // TODO: flesh this out at some point
 
   // Handle different states: loading, error, and successful data fetching
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <main className="min-h-screen bg-gray-100 flex justify-center items-center">
+        <div className="text-lg text-gray-600">Loading...</div>
+      </main>
+    );
   }
 
   if (error) {
-    return <div>Error fetching blog post</div>;
+    return (
+      <main className="min-h-screen bg-gray-100 flex justify-center items-center">
+        <div className="text-red-600 flex items-center">
+          <AlertCircle className="mr-2" />
+          Error fetching blog post
+        </div>
+      </main>
+    );
   }
 
-  
-
   return (
-    <main>
+    <main className="min-h-screen bg-gray-100">
       <MicroBlogHeader />
-      <section>
-        <h1>{blog.title}</h1>
-        <h3>{blog.author_id}</h3>
-        <article>
-          {/* TODO: need to split the page pased on if the user is the */}
-          
+      <section className="container mx-auto py-12 px-6 max-w-4xl">
+        {/* Post Header */}
+        <header className="mb-8">
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">{blog.title}</h1>
+          <p className="text-sm text-gray-500">By Author ID: {blog.author_id}</p>
+          {/* Additional Info or Navigation */}
+          <div className="mt-4 flex justify-end space-x-4">
+            {userIsAuthor && (
+              <>
+                <button
+                  className="text-blue-600 hover:text-blue-800 transition ease-in-out duration-150"
+                  onClick={() => console.log("Save Post")}
+                >
+                  Save Post
+                </button>
+                <button
+                  className="text-red-600 hover:text-red-800 transition ease-in-out duration-150"
+                  onClick={() => console.log("Delete Post")}
+                >
+                  Delete Post
+                </button>
+              </>
+            )}
+            <button
+              className="text-gray-600 hover:text-gray-800 transition ease-in-out duration-150"
+              onClick={() => console.log("Switch Mode")}
+            >
+              {userIsAuthor ? "View Post" : "Edit Post"}
+            </button>
+          </div>
+        </header>
+
+        {/* Post Content */}
+        <article className="bg-white p-6 rounded-lg shadow-md">
           {userIsAuthor ? (
-            <MDXEditor
-            markdown={blog.content}
-            plugins={[
-              // Example Plugin Usage
-              headingsPlugin(),
-              listsPlugin(),
-              quotePlugin(),
-              thematicBreakPlugin(),
-              markdownShortcutPlugin()
-            ]}
-            // {...props}
-            // ref={editorRef}
-          />
+            <InitializedMDXEditor
+              editorRef={null}
+              markdown={blog.content}
+            />
           ) : (
-            <Markdown>{blog.content}</Markdown>
+            <Markdown className="prose">{blog.content}</Markdown>
           )}
-          
         </article>
       </section>
     </main>

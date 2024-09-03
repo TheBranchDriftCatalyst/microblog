@@ -55,7 +55,7 @@ export const MicroBlogHeader = () => {
 
   return (
     <CatalystHeader
-      suppressHydrationWarning={true}
+      
       title={title}
       avatar={<UserAvatar />}
       navigationItems={compact([

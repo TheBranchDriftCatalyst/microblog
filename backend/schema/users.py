@@ -2,7 +2,7 @@ from typing import Optional, get_type_hints, Type
 
 from ninja import Schema
 
-# For debugging our dto chain 
+# For debugging our dto chain because these validation errors are a pain and require a db nuke when changed
 def make_optional(schema_cls: Type[Schema]):
     """Modify the schema class to make all fields Optional."""
     annotations = get_type_hints(schema_cls)

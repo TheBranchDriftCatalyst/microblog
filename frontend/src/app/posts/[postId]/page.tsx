@@ -11,6 +11,7 @@ import { useParams } from "next/navigation";
 import MarkdownEditorViewer from "@/common/components/MarkdownEditor/MarkdownEditorViewer";
 import { useHeader } from "@/common/components/CatalystHeader/CatalystHeaderProvider";
 import { useEffect } from "react";
+import { useControls } from 'leva'
 
 // InitializedMDXEditor.tsx
 import type { ForwardedRef } from 'react'
@@ -27,6 +28,13 @@ import {
 
 import '@mdxeditor/editor/style.css';
 import { getBlogPost } from "@/common/api/blog_posts";
+import Markdown from "react-markdown";
+
+// TODO:
+// Add the following hover dropdown buttons
+// - delete post
+// - save post
+// - edit post | view post (switch between markdown render and text input views)
 
 // Only import this to the next file
 export function InitializedMDXEditor({
@@ -68,7 +76,7 @@ export default function Home() {
     enabled: !!postId, // Only run the query if postId is available
   });
 
-  const userIsAuthor = false // TODO: flesh this out at some point
+  const { userIsAuthor } = useControls({userIsAuthor: false}) // TODO: flesh this out at some point
 
   // Handle different states: loading, error, and successful data fetching
   if (isLoading) {
@@ -79,17 +87,19 @@ export default function Home() {
     return <div>Error fetching blog post</div>;
   }
 
-  // useEffect(() => {
-  //   setTitle("Microblog > " + blog.title)
-  // }, [postId])
+  
 
   return (
     <main>
       <MicroBlogHeader />
       <section>
+        <h1>{blog.title}</h1>
+        <h3>{blog.author_id}</h3>
         <article>
           {/* TODO: need to split the page pased on if the user is the */}
-          <MDXEditor
+          
+          {userIsAuthor ? (
+            <MDXEditor
             markdown={blog.content}
             plugins={[
               // Example Plugin Usage
@@ -102,6 +112,10 @@ export default function Home() {
             // {...props}
             // ref={editorRef}
           />
+          ) : (
+            <Markdown>{blog.content}</Markdown>
+          )}
+          
         </article>
       </section>
     </main>

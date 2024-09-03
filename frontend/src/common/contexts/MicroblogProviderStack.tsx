@@ -9,6 +9,7 @@ import { NavigationMenuLink } from '../ui/navigation-menu';
 import RegisterOrLoginCard from '../cards/RegisterOrLoginCard/RegisterOrLoginCard';
 import { TypeOf, ZodObject, ZodString, ZodTypeAny } from 'zod';
 import { CatalystHeaderProvider } from '../components/CatalystHeader/CatalystHeaderProvider';
+import { Toaster } from '../ui/toaster';
 // import { HeaderProvider } from '../components/CatalystHeader/HeaderProvider';
 
 // Initialize a new QueryClient instance for React Query
@@ -20,6 +21,7 @@ export const MicroblogProviderStack = ({ children }: { children: React.ReactNode
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <CatalystHeaderProvider initialValues={{title: "Microblog"}}>
+        <Toaster />
         {/* TODO: add header provider here eventually */}
         {children}
         </CatalystHeaderProvider>

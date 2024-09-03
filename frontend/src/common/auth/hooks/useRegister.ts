@@ -6,6 +6,7 @@ export const useRegister = () => {
   const { login } = useAuth();
 
   const mutation = useMutation(({ username, email, password }) => {
+    console.log(username, email, password)
     return createUser({
       username: username,
       email: username,
@@ -13,6 +14,7 @@ export const useRegister = () => {
     });
   }, {
     onSuccess: (data, variables) => {
+      console.log({ cata, variables })
       // Automatically log in after successful registration
       // login(variables.username, variables.password);
     }

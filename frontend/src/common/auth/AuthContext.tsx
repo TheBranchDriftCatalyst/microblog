@@ -4,11 +4,14 @@ import { useRouter } from 'next/navigation';
 import { apiLogin } from './utils/api';
 import useLocalStorageState from '../hooks/useLocalStorageState';
 import axios from 'axios';
+import { createUser, getMe } from '../api/users';
+import { useToast } from '../ui/use-toast';
 
 interface AuthContextProps {
   login: (username: string, password: string) => void;
   logout: () => void;
   isAuthenticated: boolean;
+  register: () => void;
 }
 
 export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -16,9 +19,11 @@ export const AuthContext = createContext<AuthContextProps | undefined>(undefined
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { toast } = useToast()
 
   const [accessToken, setAccessToken] = useLocalStorageState<string | null>('accessToken', null);
   const [refreshToken, setRefreshToken] = useLocalStorageState<string | null>('refreshToken', null);
+  const [user, setUser] = useLocalStorageState<string | null>('user', null);
 
   // TODO: add support for 
   // - [x] API/token/pair (LOGIN)
@@ -27,6 +32,34 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const onSetAccessToken = (accessToken: string) => {
     setAccessToken(accessToken);
   }
+
+  const registerMutation = useMutation(
+    async ({ username, password }: { username: string; password: string }) => {
+      const response = await createUser({username, password, email: username});
+      console.log("creating user", {username, password})
+      return response
+      // return {
+      //   access: response.access,
+      //   refresh: response.refresh,
+      // };
+    },
+    {
+      onSuccess: async ({ access, refresh, }) => {
+        // login()
+        queryClient.invalidateQueries('user'); // Refresh user data
+        router.push('/posts');
+      },
+      onError: (e: Error) => {
+        toast({
+          title: "Error Creating User",
+          description: e.message,
+          variant: "destructive"
+        })
+        setAccessToken(null);
+        setRefreshToken(null);
+      },
+    }
+  );
 
 
   const loginMutation = useMutation(
@@ -38,13 +71,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       };
     },
     {
-      onSuccess: ({ access, refresh, }) => {
+      onSuccess: async ({ access, refresh, }) => {
         setAccessToken(access);
         setRefreshToken(refresh);
         queryClient.invalidateQueries('user'); // Refresh user data
-        router.push('/');
+        router.push('/posts');
       },
-      onError: () => {
+      onError: (e: Error) => {
+        toast({
+          title: "Unable to Login",
+          variant: "destructive",
+          description: e.message,
+        })
         setAccessToken(null);
         setRefreshToken(null);
       },
@@ -52,7 +90,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   const login = (username: string, password: string) => {
+    console.log("now logging in", {username, password})
     loginMutation.mutate({ username, password });
+  };
+
+  const register = (username: string, password: string) => {
+    registerMutation.mutate({ username, password });
   };
 
   const logout = () => {
@@ -65,7 +108,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const isAuthenticated = !!accessToken;
 
   return (
-    <AuthContext.Provider value={{ login, logout, isAuthenticated }}>
+    <AuthContext.Provider value={{ login, logout, isAuthenticated, register }}>
       {children}
     </AuthContext.Provider>
   );

@@ -5,6 +5,7 @@ from backend.schema.blog_posts import BlogPostSchema
 from backend.models.users import User
 from ninja import Router
 from backend.schema.users import UserCreateSchema, UserSchema, UserUpdateSchema
+from ninja_jwt.authentication import JWTAuth
 
 router = Router()
 
@@ -45,3 +46,13 @@ def list_users(request):
 def get_posts(request, user_id: int):
     user = get_object_or_404(User, id=user_id)
     return list(user.blog_posts.all())
+
+# from ninja_jwt.authentication import JWTAuth
+
+
+@router.get("/me", tags=['Auth'], auth=JWTAuth())
+def get_current_user(request):
+    # The user is already authenticated by JWTAuth
+    user = request.auth
+    return {"id": user.id, "username": user.username, "email": user.email}
+

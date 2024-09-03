@@ -8,8 +8,11 @@ export const getFromLocalStorage = <T>(key: string, defaultValue: T): T => {
     return defaultValue;
   }
 
-  const storedValue = localStorage.getItem(key);
-  return storedValue ? (JSON.parse(storedValue) as T) : defaultValue;
+  // NOTE: don't use this with objects until we add back in the json serialization... which had some issues
+  // when storing strings, we don't want to JSON.parse|serialize them them
+
+  return localStorage.getItem(key);
+  // return storedValue ? (JSON.parse(storedValue) as T) : defaultValue;
 };
 
 export const setToLocalStorage = <T>(key: string, value: T): void => {
@@ -18,7 +21,7 @@ export const setToLocalStorage = <T>(key: string, value: T): void => {
     return;
   }
 
-  localStorage.setItem(key, JSON.stringify(value));
+  localStorage.setItem(key, value);
 };
 
 /**

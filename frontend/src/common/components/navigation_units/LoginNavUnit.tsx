@@ -8,7 +8,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { Loader, AlertCircle } from "lucide-react";
-import { getUser } from "@/common/api/users";
+import { getMe, getUser } from "@/common/api/users";
 
 // Define the TypeScript interface based on the UserSchema
 interface UserSchema {
@@ -25,16 +25,14 @@ interface UserCardProps {
 }
 
 // Function to fetch user data from the API
-const fetchUser = async (userId: number): Promise<UserSchema> => {
-  const response = await axios.get<UserSchema>(`/api/users/${userId}/`);
-  return response.data;
-};
+// const fetchUser = async (userId: number): Promise<UserSchema> => {
+//   await getMe
+//   return response.data;
+// };
 
 // The UserCard component
 const UserCard: React.FC<UserCardProps> = ({ userId }) => {
-  const { data: user, error, isLoading } = useQuery(["user", userId], () => {
-    getUser(userId);
-  })
+  const { data: user, error, isLoading } = useQuery(["user", userId], getMe)
 
   // Handle loading state
   if (isLoading) {
@@ -61,18 +59,8 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{user?.username}</div>
         <p className="text-gray-700 text-base">
-          Email: <span className="text-gray-900">{user?.email}</span>
+          {JSON.stringify(user, null, 2)}
         </p>
-        {user?.first_name && (
-          <p className="text-gray-700 text-base">
-            First Name: <span className="text-gray-900">{user.first_name}</span>
-          </p>
-        )}
-        {user?.last_name && (
-          <p className="text-gray-700 text-base">
-            Last Name: <span className="text-gray-900">{user.last_name}</span>
-          </p>
-        )}
       </div>
     </div>
   );

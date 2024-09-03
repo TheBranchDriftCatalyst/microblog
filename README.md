@@ -33,6 +33,7 @@ Tech Stack:
 - API
   - Register USER
   - Login User
+    - [ ] me endpoint
   - CRUD Blog Posts
   - user profile (bonus)
 

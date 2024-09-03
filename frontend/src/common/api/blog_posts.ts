@@ -21,14 +21,12 @@ export interface BlogPostSchema {
   updated_at: string; // Assuming this is a DateTime field
 }
 
-const API_BASE_URL = "http://localhost:8000/api"; // Update with your actual base URL
-
 // Create a new blog post
 export const createBlogPost = async (
   payload: BlogPostCreateSchema
 ): Promise<BlogPostSchema> => {
-  const response: AxiosResponse<BlogPostSchema> = await axios.post(
-    `${API_BASE_URL}/blogs/`,
+  const response: AxiosResponse<BlogPostSchema> = await apiClient.post(
+    `/blogs/`,
     payload
   );
   return response.data;
@@ -38,8 +36,8 @@ export const createBlogPost = async (
 export const getBlogPost = async (
   blogPostId: number
 ): Promise<BlogPostSchema> => {
-  const response: AxiosResponse<BlogPostSchema> = await axios.get(
-    `${API_BASE_URL}/blogs/${blogPostId}/`
+  const response: AxiosResponse<BlogPostSchema> = await apiClient.get(
+    `/blogs/${blogPostId}/`
   );
   return response.data;
 };
@@ -49,8 +47,8 @@ export const updateBlogPost = async (
   blogPostId: number,
   payload: BlogPostUpdateSchema
 ): Promise<BlogPostSchema> => {
-  const response: AxiosResponse<BlogPostSchema> = await axios.put(
-    `${API_BASE_URL}/blogs/${blogPostId}/`,
+  const response: AxiosResponse<BlogPostSchema> = await apiClient.put(
+    `/blogs/${blogPostId}/`,
     payload
   );
   return response.data;
@@ -60,15 +58,16 @@ export const updateBlogPost = async (
 export const deleteBlogPost = async (
   blogPostId: number
 ): Promise<void> => {
-  await axios.delete(`${API_BASE_URL}/blogs/${blogPostId}/`);
+  await apiClient.delete(`/blogs/${blogPostId}/`);
 };
 
 // List all blog posts
 export const listBlogPosts = async (): Promise<BlogPostSchema[]> => {
-  const response: AxiosResponse<BlogPostSchema[]> = await axios.get(
-    `${API_BASE_URL}/blogs/`
+  const response: AxiosResponse<BlogPostSchema[]> = await apiClient.get(
+    `/blogs/`
   );
   return response.data;
 };
-
+import { get } from "http";
+import apiClient from "./api_client";
 

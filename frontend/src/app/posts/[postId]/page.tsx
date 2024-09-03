@@ -3,7 +3,7 @@ import { useAuth } from "@/common/auth/hooks/useAuth";
 import { API_URL } from "@/common/auth/utils/api";
 import CatalystHeader from "@/common/components/CatalystHeader/CatalystHeader";
 import UserNavigationUnit from "@/common/components/navigation_units/LoginNavUnit";
-import StoriesNavigation from "@/common/components/navigation_units/StoriesNavUnit";
+import StoriesNavigation from "@/common/components/navigation_units/BlogPostNavUnit";
 import MicroBlogHeader from "@/common/header/MicroBlogHeader";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -26,6 +26,7 @@ import {
 } from '@mdxeditor/editor'
 
 import '@mdxeditor/editor/style.css';
+import { getBlogPost } from "@/common/api/blog_posts";
 
 // Only import this to the next file
 export function InitializedMDXEditor({
@@ -49,7 +50,7 @@ export function InitializedMDXEditor({
 }
 
 // Define a function to fetch the blog post by ID
-const fetchPostById = async (postId: string | string[] | undefined) => {
+const fetchPostById = async (postId: string | string[] | undefined | number) => {
   if (!postId) {
     throw new Error("Post ID is required");
   }
@@ -63,7 +64,7 @@ export default function Home() {
   const { postId } = params; // Extract postId from URL params
 
   // Use React Query's useQuery hook to fetch the blog post
-  const { data: blog, error, isLoading } = useQuery(["blog", postId], () => fetchPostById(postId), {
+  const { data: blog, error, isLoading } = useQuery(["blog", postId], () => getBlogPost(postId), {
     enabled: !!postId, // Only run the query if postId is available
   });
 

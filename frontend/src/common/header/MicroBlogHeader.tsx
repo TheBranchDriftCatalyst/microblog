@@ -3,7 +3,7 @@ import Image from "next/image";
 import CatalystHeader from "../components/CatalystHeader/CatalystHeader";
 import { useHeader } from "../components/CatalystHeader/CatalystHeaderProvider";
 import UserNavigationUnit from "../components/navigation_units/LoginNavUnit";
-import StoriesNavigation from "../components/navigation_units/StoriesNavUnit";
+import StoriesNavigation from "../components/navigation_units/BlogPostNavUnit";
 import { useEffect } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";

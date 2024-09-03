@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from django.shortcuts import get_object_or_404
 from backend.models.blog_posts import BlogPost
@@ -42,5 +42,14 @@ def delete_blog_post(request, blog_post_id: int):
 
 
 @router.get("/", response=List[BlogPostSchema])
-def list_blog_posts(request):
-    return list(BlogPost.objects.all())
+def list_blog_posts(request, order_by: Optional[str] = None):
+    if order_by is None:
+        order_by = '-created_at'
+    queryset: QuerySet = BlogPost.objects.all()
+
+    # If order_by is provided, split by commas and order the queryset accordingly
+    if order_by:
+        # order_fields = order_by.split(',')
+        queryset = queryset.order_by(order_by)
+
+    return list(queryset)

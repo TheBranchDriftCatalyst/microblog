@@ -3,6 +3,7 @@ import { useQueryClient, useMutation } from 'react-query';
 import { useRouter } from 'next/navigation';
 import { apiLogin } from './utils/api';
 import useLocalStorageState from '../hooks/useLocalStorageState';
+import axios from 'axios';
 
 interface AuthContextProps {
   login: (username: string, password: string) => void;
@@ -23,6 +24,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   // - [x] API/token/pair (LOGIN)
   // - [ ] API/token/refresh (REFRESH)
   // - [ ] API/token/verify ()
+  const onSetAccessToken = (accessToken: string) => {
+    setAccessToken(accessToken);
+  }
+
 
   const loginMutation = useMutation(
     async ({ username, password }: { username: string; password: string }) => {

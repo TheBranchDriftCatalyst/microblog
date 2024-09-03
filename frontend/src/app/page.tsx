@@ -2,7 +2,7 @@
 import { useAuth } from "@/common/auth/hooks/useAuth";
 import CatalystHeader from "@/common/components/CatalystHeader/CatalystHeader";
 import UserNavigationUnit from "@/common/components/navigation_units/LoginNavUnit";
-import StoriesNavigation from "@/common/components/navigation_units/StoriesNavUnit";
+import StoriesNavigation from "@/common/components/navigation_units/BlogPostNavUnit";
 import NavigationItem from "@/common/components/NavigationHeader/NavigationItem";
 import { useHeader } from "@/common/components/CatalystHeader/CatalystHeaderProvider";
 import Image from "next/image";

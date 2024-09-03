@@ -8,6 +8,36 @@ import { Tilt } from '@jdion/tilt-react'
 import { useParams, useRouter } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/common/ui/card";
 
+import Markdown from 'react-markdown'
+
+// Props for the MarkdownRenderer component
+// interface MarkdownRendererProps {
+//   content: string;
+// }
+
+// const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
+//   const [renderedContent, setRenderedContent] = useState<string>("");
+
+//   useEffect(() => {
+//     // Convert the Markdown content to HTML
+//     const convertMarkdownToHtml = async () => {
+//       const result = await remark().use(html).process(content);
+//       setRenderedContent(result.toString());
+//     };
+
+//     convertMarkdownToHtml();
+//   }, [content]);
+
+//   return (
+//     <div
+//       className="text-gray-600"
+//       dangerouslySetInnerHTML={{ __html: renderedContent }}
+//     />
+//   );
+// };
+
+
+
 export default function Home() {
   const router = useRouter();
   const params = useParams();
@@ -42,7 +72,7 @@ export default function Home() {
       <MicroBlogHeader />
       <section className="container mx-auto py-8 px-4">
         <ul className="space-y-6">
-          {blogs.map((blog: { id: number; title: string; content: string }) => (
+          {blogs?.map((blog: { id: number; title: string; content: string }) => (
             <li key={blog.id}>
               <Tilt
                 className="shadow-lg hover:shadow-xl transition-shadow duration-300"
@@ -56,10 +86,12 @@ export default function Home() {
                   <CardHeader>
                     <CardTitle className="text-lg font-semibold text-gray-800">
                       {blog.title}
+                      {blog.created_at}
+                      {/* {blog.updated_at} */}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-600">{blog.content}</p>
+                  <Markdown>{blog.content}</Markdown>
                   </CardContent>
                 </Card>
               </Tilt>

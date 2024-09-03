@@ -6,7 +6,7 @@ import { useAuth } from "@/common/auth/hooks/useAuth";
 import React from "react";
 import { useQuery } from "react-query";
 import { Loader, AlertCircle, DoorClosed } from "lucide-react";
-import { getMe } from "@/common/api/users";
+import { getMe, getUserPosts } from "@/common/api/users";
 import Button from "@/common/ui/button";
 
 // Define the TypeScript interface based on the UserSchema
@@ -25,6 +25,7 @@ interface UserCardProps {
 // The UserCard component
 const UserCard: React.FC<UserCardProps> = ({ userId }) => {
   const { data: user, error, isLoading } = useQuery(["user", userId], getMe);
+  const { data } = useQuery(["userPosts", userId], () => getUserPosts(userId));
 
   // Handle loading state
   if (isLoading) {
@@ -64,6 +65,9 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
           <h2 className="text-xl font-semibold text-gray-800">{user?.username}</h2>
           <p className="text-sm text-gray-500">{user?.email}</p>
         </div>
+      </div>
+      <div className="flex items-center space-x-4">
+        Posts {data?.length}
       </div>
     </div>
   );

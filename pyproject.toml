@@ -15,6 +15,7 @@ psycopg2-binary = "^2.9.9"
 markdown = "^3.7"
 django-ninja-jwt = "^5.3.3"
 django-cors-headers = "^4.4.0"
+structlog = "^24.4.0"
 
 
 [tool.poetry.group.dev.dependencies]

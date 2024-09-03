@@ -14,7 +14,7 @@ export const useRegister = () => {
     });
   }, {
     onSuccess: (data, variables) => {
-      console.log({ cata, variables })
+      console.log('register userhook on sucess', { cata, variables })
       // Automatically log in after successful registration
       // login(variables.username, variables.password);
     }

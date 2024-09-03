@@ -1,6 +1,7 @@
 from typing import List
 
 from django.shortcuts import get_object_or_404
+import structlog
 from backend.schema.blog_posts import BlogPostSchema
 from backend.models.users import User
 from ninja import Router
@@ -8,10 +9,12 @@ from backend.schema.users import UserCreateSchema, UserSchema, UserUpdateSchema
 from ninja_jwt.authentication import JWTAuth
 
 router = Router()
+logger = structlog.get_logger(__name__)
 
 
 @router.post("/", response=UserSchema)
 def create_user(request, payload: UserCreateSchema):
+    logger.info("Creating user", payload=payload.dict())
     user = User.objects.create_user(**payload.dict())
     return user
 

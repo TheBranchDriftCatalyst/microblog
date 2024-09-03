@@ -125,7 +125,7 @@ export const RegisterOrLoginCard = ({ oidcProviders, onLogin, onCreateAccount }:
                 or
               </Typography>
               <span className="shrink-1">
-                <Button variant="secondary" onClick={onCreateAccount}>
+                <Button variant="secondary" onClick={form.handleSubmit(onCreateAccount)}>
                   Create account
                 </Button>
               </span>

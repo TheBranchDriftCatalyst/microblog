@@ -71,8 +71,8 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
 
 export const UserNavigationUnit = ({}) => {
 
-  const { login, isAuthenticated, logout } = useAuth();
-  const { register } = useRegister()
+  const { login, isAuthenticated, logout, register } = useAuth();
+  // const { register } = useRegister()
 
 
   const handleLogin = ({username: email, password}: {username: string, password: string}) => { 

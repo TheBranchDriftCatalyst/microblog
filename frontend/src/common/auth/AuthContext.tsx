@@ -11,7 +11,7 @@ interface AuthContextProps {
   login: (username: string, password: string) => void;
   logout: () => void;
   isAuthenticated: boolean;
-  register: () => void;
+  register: (data) => void;
 }
 
 export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const registerMutation = useMutation(
     async (data) => {
-      console.log("creating user", {data})
+      console.log("register mutation", {data})
       const response = await createUser(data);
       return response
       // return {
@@ -94,8 +94,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     loginMutation.mutate({ username, password });
   };
 
-  const register = (username: string, password: string) => {
-    registerMutation.mutate({ username, password });
+  const register = ({username, avatar, password, email}) => {
+    username ||= email
+    avatar = "https://cdn.fakercloud.com/avatars/nilshoenson_128.jpg"
+    console.log("register", {username, avatar, password, email})
+    registerMutation.mutate({username, avatar, password, email});
   };
 
   const logout = () => {

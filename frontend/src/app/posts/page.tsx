@@ -80,9 +80,8 @@ export default function Home() {
                 // scale={1.05}
                 // glareEnable={true}
                 // glareMaxOpacity={0.2}
-                onClick={() => handleCardClick(blog.id)}
               >
-                <Card className="cursor-pointer">
+                <Card className="cursor-pointer" onClick={() => handleCardClick(blog.id)}>
                   <CardHeader>
                     <CardTitle className="text-lg font-semibold text-gray-800">
                       {blog.title}

@@ -36,7 +36,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-100 flex flex-col">
+    <main className="min-h-screenflex flex-col">
       <MicroBlogHeader />
       <section className="container mx-auto py-12 px-6 max-w-3xl flex flex-col space-y-8">
         {/* Blog Post Form */}

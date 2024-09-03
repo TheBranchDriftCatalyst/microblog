@@ -39,7 +39,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen">
       <MicroBlogHeader />
       <section className="container mx-auto py-10 px-6">
         <ul className="space-y-8">

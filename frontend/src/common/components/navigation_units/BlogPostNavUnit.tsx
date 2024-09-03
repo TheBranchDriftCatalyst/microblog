@@ -4,9 +4,11 @@ import { CirclePlus } from "lucide-react";
 import { useQuery } from "react-query";
 import { listBlogPosts } from "@/common/api/blog_posts";
 import { take } from "lodash";
+import { useRouter } from "next/navigation";
 
 export const BlogPostNavUnit = () => {
   const { data: blogs, error, isLoading } = useQuery("blogs", listBlogPosts);
+  const router = useRouter()
 
   // Handle loading state
   if (isLoading) {
@@ -29,14 +31,15 @@ export const BlogPostNavUnit = () => {
   }
 
   return (
-    <NavigationItem key="blog_posts_nav" title="Posts">
+    <NavigationItem key="blog_posts_nav" title="Posts" >
       <ul className="grid gap-4 p-4 md:w-[400px] lg:w-[500px] bg-white rounded-lg shadow-md">
-        <NavigationListItem key={-1} href="/posts/create" title={(
+        <NavigationListItem key={-2} href="/posts/create" title={(
           <div className="flex items-center text-blue-600 hover:text-blue-800 transition ease-in-out duration-150">
             <CirclePlus className="h-6 w-6 mr-2" />
             <span className="font-medium">Create New Post</span>
           </div>
         )}></NavigationListItem>
+        <NavigationListItem key={-1} href="/posts" title="All Posts"></NavigationListItem>
         {
           take(blogs, 10)?.map((blog, idx) => (
             <NavigationListItem

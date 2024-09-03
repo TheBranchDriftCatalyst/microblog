@@ -67,15 +67,15 @@ export default function Home() {
   // Handle different states: loading, error, and successful data fetching
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-gray-100 flex justify-center items-center">
-        <div className="text-lg text-gray-600">Loading...</div>
+      <main className="min-h-scree flex justify-center items-center">
+        <div className="text-lg ">Loading...</div>
       </main>
     );
   }
 
   if (error) {
     return (
-      <main className="min-h-screen bg-gray-100 flex justify-center items-center">
+      <main className="min-h-scree flex justify-center items-center">
         <div className="text-red-600 flex items-center">
           <AlertCircle className="mr-2" />
           Error fetching blog post
@@ -85,13 +85,13 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen">
       <MicroBlogHeader />
       <section className="container mx-auto py-12 px-6 max-w-4xl">
         {/* Post Header */}
         <header className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">{blog.title}</h1>
-          <p className="text-sm text-gray-500">By Author ID: {blog.author_id}</p>
+          <h1 className="text-4xl font-bol mb-2">{blog.title}</h1>
+          <p className="text-sm">By Author ID: {blog.author_id}</p>
           {/* Additional Info or Navigation */}
           <div className="mt-4 flex justify-end space-x-4">
             {userIsAuthor && (
@@ -111,7 +111,7 @@ export default function Home() {
               </>
             )}
             <button
-              className="text-gray-600 hover:text-gray-800 transition ease-in-out duration-150"
+              className=" hover:text-destructive-800 transition ease-in-out duration-150"
               onClick={() => console.log("Switch Mode")}
             >
               {userIsAuthor ? "View Post" : "Edit Post"}
@@ -120,7 +120,7 @@ export default function Home() {
         </header>
 
         {/* Post Content */}
-        <article className="bg-white p-6 rounded-lg shadow-md">
+        <article className="p-6 rounded-lg shadow-md">
           {userIsAuthor ? (
             <InitializedMDXEditor
               editorRef={null}

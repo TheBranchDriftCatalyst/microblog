@@ -15,7 +15,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   useEffect(() => {
-    document.documentElement.className = `theme-${theme} ${variant}`;
+    document.documentElement.className = `${variant}`;
   }, [theme, variant]);
 
   const value = useMemo(

@@ -44,8 +44,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       // };
     },
     {
-      onSuccess: async ({ access, refresh, }) => {
-        // login()
+      onSuccess: async (_, {password, email}) => {
+        toast({
+          title: "Created New User!!!",
+          description: "Sweet! welcome to the site!",
+          variant: "secondary"
+        })
+        console.log("boom time", {email, password})
+        login(email, password)
         queryClient.invalidateQueries('user'); // Refresh user data
         router.push('/posts');
       },

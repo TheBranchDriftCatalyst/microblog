@@ -11,9 +11,9 @@ class Command(BaseCommand):
         self.stdout.write("Creating admin user...")
 
         user, created = User.objects.get_or_create(
-            username="admin",
+            username="panda",
             defaults={
-                "email": "djdanielsh@gmail.com",
+                "email": "panda@gmail.com",
                 "is_staff": True,
                 "is_superuser": True,
             },

@@ -1,6 +1,52 @@
-## About this project
+# About this project
 
-![](./frontend/README.md)
+![Frontend Documentation](./frontend/README.md)
+
+## Running the App
+
+**Backend**
+
+```sh
+
+# If you have issues with task file the relvant commands can be run manually (see task file for task commands)
+
+# ensure taskfile is installed
+brew install go-task # (for mac)
+
+poetry install
+
+poetry shell
+
+# Start PG database
+docker compose up -d
+
+task migrate
+
+task seed
+
+# User admin created
+# email = panda@gmail.com
+# password = turbopookipanda
+
+# Start the dev server
+task dev 
+
+```
+
+**Frontend**
+  
+```sh
+cd frontend/
+
+yarn install
+
+task dev:next # ie/. yarn dev:next 
+task storybook # i.e., yarn storybook
+
+```
+
+
+
 
 ## Backend
 

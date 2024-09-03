@@ -1,10 +1,10 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { useQueryClient, useMutation } from 'react-query';
 import { useRouter } from 'next/navigation';
 import { apiLogin } from './utils/api';
 import useLocalStorageState from '../hooks/useLocalStorageState';
 import axios from 'axios';
-import { createUser, getMe } from '../api/users';
+import { createUser, getMe, UserSchema } from '../api/users';
 import { useToast } from '../ui/use-toast';
 
 interface AuthContextProps {
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [accessToken, setAccessToken] = useLocalStorageState<string | null>('accessToken', null);
   const [refreshToken, setRefreshToken] = useLocalStorageState<string | null>('refreshToken', null);
-  const [user, setUser] = useLocalStorageState<string | null>('user', null);
+  const [user, setUser] = useState<UserSchema>();
 
   // TODO: add support for 
   // - [x] API/token/pair (LOGIN)
@@ -38,20 +38,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       console.log("register mutation", {data})
       const response = await createUser(data);
       return response
-      // return {
-      //   access: response.access,
-      //   refresh: response.refresh,
-      // };
     },
     {
-      onSuccess: async (_, {password, email}) => {
+      onSuccess: async (data, {password, email}) => {
         toast({
           title: "Created New User!!!",
           description: "Sweet! welcome to the site!",
           variant: "secondary"
         })
-        console.log("boom time", {email, password})
+        console.log("boom time", {data, email, password})
         login(email, password)
+        setUser(data)
         queryClient.invalidateQueries('user'); // Refresh user data
         router.push('/posts');
       },
@@ -61,8 +58,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           description: e.message,
           variant: "destructive"
         })
-        setAccessToken(null);
-        setRefreshToken(null);
       },
     }
   );
@@ -72,9 +67,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     async ({ username, password }: { username: string; password: string }) => {
       const response = await apiLogin(username, password);
       return {
-        // change this to response.access if not using sliding tokens
-        access: response.token,
-        // refresh: response.refresh,
+        // change this to response.access if not using sliding tokens, right now we can hotswap them though
+        access: response?.token || response.access,
+        refresh: response?.refresh,
       };
     },
     {

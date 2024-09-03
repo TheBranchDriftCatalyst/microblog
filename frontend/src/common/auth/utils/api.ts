@@ -2,7 +2,8 @@ import axios from 'axios';
 export const API_URL = 'http://localhost:8000'; // Replace with your actual API URL
 
 export const apiLogin = async (username: string, password: string) => {
-  const response = await axios.post(`${API_URL}/api/token/sliding`, { email: username, password });
+  const response = await axios.post(`${API_URL}/api/token/pair`, { email: username, password });
+  // const response = await axios.post(`${API_URL}/api/token/sliding`, { email: username, password });
   return response.data; // Assuming the response contains the token
 };
 

@@ -4,39 +4,10 @@ import { listBlogPosts } from "@/common/api/blog_posts";
 import { useQuery } from "react-query";
 import { Loader, AlertCircle } from "lucide-react";
 import MicroBlogHeader from "@/common/header/MicroBlogHeader";
-import { Tilt } from '@jdion/tilt-react'
+import { Tilt } from "@jdion/tilt-react";
 import { useParams, useRouter } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/common/ui/card";
-
-import Markdown from 'react-markdown'
-
-// Props for the MarkdownRenderer component
-// interface MarkdownRendererProps {
-//   content: string;
-// }
-
-// const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
-//   const [renderedContent, setRenderedContent] = useState<string>("");
-
-//   useEffect(() => {
-//     // Convert the Markdown content to HTML
-//     const convertMarkdownToHtml = async () => {
-//       const result = await remark().use(html).process(content);
-//       setRenderedContent(result.toString());
-//     };
-
-//     convertMarkdownToHtml();
-//   }, [content]);
-
-//   return (
-//     <div
-//       className="text-gray-600"
-//       dangerouslySetInnerHTML={{ __html: renderedContent }}
-//     />
-//   );
-// };
-
-
+import Markdown from "react-markdown";
 
 export default function Home() {
   const router = useRouter();
@@ -48,17 +19,17 @@ export default function Home() {
   // Handle different states: loading, error, and successful data fetching
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader className="animate-spin w-10 h-10 text-blue-500" />
+      <div className="flex items-center justify-center h-screen bg-gray-100">
+        <Loader className="animate-spin w-12 h-12 text-blue-500" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <AlertCircle className="w-10 h-10 text-red-500" />
-        <p className="ml-2 text-red-500">Error fetching blogs</p>
+      <div className="flex items-center justify-center h-screen bg-gray-100 text-red-500">
+        <AlertCircle className="w-12 h-12" />
+        <p className="ml-2">Error fetching blogs</p>
       </div>
     );
   }
@@ -70,27 +41,25 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-100">
       <MicroBlogHeader />
-      <section className="container mx-auto py-8 px-4">
-        <ul className="space-y-6">
-          {blogs?.map((blog: { id: number; title: string; content: string }) => (
+      <section className="container mx-auto py-10 px-6">
+        <ul className="space-y-8">
+          {blogs?.map((blog: { id: number; title: string; content: string, created_at: string }) => (
             <li key={blog.id}>
               <Tilt
-                className="shadow-lg hover:shadow-xl transition-shadow duration-300"
-                // tiltMaxAngleY={10}
-                // scale={1.05}
-                // glareEnable={true}
-                // glareMaxOpacity={0.2}
+                className="shadow-lg hover:shadow-2xl transition-shadow duration-300"
               >
-                <Card className="cursor-pointer" onClick={() => handleCardClick(blog.id)}>
-                  <CardHeader>
-                    <CardTitle className="text-lg font-semibold text-gray-800">
+                <Card
+                  className="cursor-pointer bg-white rounded-lg p-6"
+                  onClick={() => handleCardClick(blog.id)}
+                >
+                  <CardHeader className="border-b pb-4 mb-4">
+                    <CardTitle className="text-2xl font-bold text-gray-800">
                       {blog.title}
-                      {blog.created_at}
-                      {/* {blog.updated_at} */}
                     </CardTitle>
+                    <p className="text-sm text-gray-500 mt-2">{new Date(blog.created_at).toLocaleDateString()}</p>
                   </CardHeader>
-                  <CardContent>
-                  <Markdown>{blog.content}</Markdown>
+                  <CardContent className="text-gray-700">
+                    <Markdown className="prose line-clamp-3">{blog.content}</Markdown>
                   </CardContent>
                 </Card>
               </Tilt>

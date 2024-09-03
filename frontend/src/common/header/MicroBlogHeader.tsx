@@ -62,7 +62,7 @@ export const MicroBlogHeader = () => {
       navigationItems={compact([
         (isAuthenticated ? <StoriesNavigation key="stories_nav" /> : null), 
         (<UserNavigationUnit key="users_nav" />),
-        (<ToggleVariantButton />)
+        (<ToggleVariantButton key="toggle_theme_variant" />)
       ])}
     />
   );

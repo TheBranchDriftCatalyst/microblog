@@ -56,9 +56,9 @@ export default function Home() {
                     <CardTitle className="text-2xl font-bold">
                       {blog.title}
                     </CardTitle>
-                    <p className="text-sm text-gray-500 mt-2">{new Date(blog.created_at).toLocaleDateString()}</p>
+                    <p className="text-sm mt-2">{new Date(blog.created_at).toLocaleDateString()}</p>
                   </CardHeader>
-                  <CardContent className="text-gray-700">
+                  <CardContent>
                     <Markdown className="prose line-clamp-3">{blog.content}</Markdown>
                   </CardContent>
                 </Card>

@@ -47,8 +47,9 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
   }
 
   // Render user data
+  // TODO: convert this to a card component from ui/cards
   return (
-    <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white p-6">
+    <div className="max-w-sm rounded-lg overflow-hidden shadow-lg p-6">
       <div className="flex items-center space-x-4">
         {user?.avatar ? (
           <img
@@ -57,13 +58,13 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
             className="w-12 h-12 rounded-full object-cover"
           />
         ) : (
-          <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
+          <div className="w-12 h-12 rounded-full flex items-center justify-center">
             <span>{user?.username[0]}</span>
           </div>
         )}
         <div>
-          <h2 className="text-xl font-semibold text-gray-800">{user?.username}</h2>
-          <p className="text-sm text-gray-500">{user?.email}</p>
+          <h2 className="text-xl font-semibold">{user?.username}</h2>
+          <p className="text-sm">{user?.email}</p>
         </div>
       </div>
       <div className="flex items-center space-x-4">
@@ -99,7 +100,7 @@ export const UserNavigationUnit = () => {
 
   const userNotLoggedIn = (
     <NavigationItem key="login_nav" title="Login">
-      <ul className="p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr] bg-white shadow-md rounded-lg">
+      <ul className="p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr shadow-md rounded-lg">
         <NavigationMenuLink asChild>
           <RegisterOrLoginCard
             oidcProviders={[]}
@@ -113,11 +114,11 @@ export const UserNavigationUnit = () => {
 
   const userLoggedIn = (
     <NavigationItem key="profile_nav" title="Profile">
-      <ul className="p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr] bg-white shadow-md rounded-lg space-y-4">
+      <ul className="p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr shadow-md rounded-lg space-y-4">
         <UserCard userId={1} />
         <Button
           onClick={() => logout()}
-          className="w-full flex items-center justify-center bg-red-500 text-white px-4 py-2 rounded-md shadow hover:bg-red-600 transition ease-in-out duration-150"
+          className="w-full flex items-center justify-center bg-red-500 px-4 py-2 rounded-md shadow hover:bg-red-600 transition ease-in-out duration-150"
         >
           <DoorClosed className="h-6 w-6 mr-2" />
           Logout
